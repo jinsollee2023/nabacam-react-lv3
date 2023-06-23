@@ -17,27 +17,7 @@ const Select1 = () => {
     return state.selectReducer;
   });
 
-  // const handleSelect1Content1 = () => {
-  //   dispatch(changeContent1("리액트"));
-  //   dispatch(openSelect1(!State.select1));
-  // };
-
-  // const handleSelect1Content2 = () => {
-  //   dispatch(changeContent1("자바"));
-  //   dispatch(openSelect1(!State.select1));
-  // };
-
-  // const handleSelect1Content3 = () => {
-  //   dispatch(changeContent1("스프링"));
-  //   dispatch(openSelect1(!State.select1));
-  // };
-
-  // const handleSelect1Content4 = () => {
-  //   dispatch(changeContent1("리액트네이티브"));
-  //   dispatch(openSelect1(!State.select1));
-  // };
-
-  const test = (content) => {
+  const handleSelect1Content = (content) => {
     dispatch(changeContent1(content));
     dispatch(openSelect1(!State.select1));
   };
@@ -49,41 +29,13 @@ const Select1 = () => {
           <p
             key={item}
             onClick={() => {
-              test(item);
+              handleSelect1Content(item);
             }}
           >
             {item}
           </p>
         );
       })}
-      {/* <p
-        onClick={() => {
-          test("리액트");
-        }}
-      >
-        리액트
-      </p>
-      <p
-        onClick={() => {
-          test("자바");
-        }}
-      >
-        자바
-      </p>
-      <p
-        onClick={() => {
-          test("스프링");
-        }}
-      >
-        스프링
-      </p>
-      <p
-        onClick={() => {
-          test("리액트네이티브");
-        }}
-      >
-        리액트네이티브
-      </p> */}
     </div>
   );
 };
@@ -94,32 +46,26 @@ const Select2 = () => {
     return state.selectReducer;
   });
 
-  const handleSelect2Content1 = () => {
-    dispatch(changeContent2("리액트"));
+  const handleSelect2Content = (content) => {
+    dispatch(changeContent2(content));
     dispatch(openSelect2(!State.select2));
   };
 
-  const handleSelect2Content2 = () => {
-    dispatch(changeContent2("자바"));
-    dispatch(openSelect2(!State.select2));
-  };
-
-  const handleSelect2Content3 = () => {
-    dispatch(changeContent2("스프링"));
-    dispatch(openSelect2(!State.select2));
-  };
-
-  const handleSelect2Content4 = () => {
-    dispatch(changeContent2("리액트네이티브"));
-    dispatch(openSelect2(!State.select2));
-  };
-
+  const contentArray = ["리액트", "자바", "스프링", "리액트네이티브"];
   return (
     <div>
-      <p onClick={handleSelect2Content1}>리액트</p>
-      <p onClick={handleSelect2Content2}>자바</p>
-      <p onClick={handleSelect2Content3}>스프링</p>
-      <p onClick={handleSelect2Content4}>리액트네이티브</p>
+      {contentArray.map((item) => {
+        return (
+          <p
+            key={item}
+            onClick={() => {
+              handleSelect2Content(item);
+            }}
+          >
+            {item}
+          </p>
+        );
+      })}
     </div>
   );
 };
@@ -180,12 +126,11 @@ const App = () => {
     if (event.target.value.length === 0) {
       dispatch(changePrice(0));
     } else {
-      dispatch(changePrice(event.target.value));
+      dispatch(
+        changePrice(event.target.value.replace(0, "").replace(/[^0-9]/g, ""))
+      );
     }
-    // .replace(/[^0-9]/g, "")
-    // if(event.target.value.length>1){실행...}else (event.target.value.length===0)(초기값..)
   };
-  console.log(inputReducer.price);
   return (
     <div>
       <div>
@@ -216,9 +161,9 @@ const App = () => {
         />
         가격:{" "}
         <input
-          value={inputReducer.price}
-          // .toString()
-          // .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+          value={inputReducer.price
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           onChange={handleChange}
         />
         <button>저장</button>
@@ -281,7 +226,6 @@ const St = {
     margin: 0 auto;
     border-radius: 0.5rem;
     background-color: #fff;
-    /* 팝업이 열릴때 스르륵 열리는 효과 */
     animation: modal-show 0.3s;
     overflow: hidden;
     padding: 20px;
