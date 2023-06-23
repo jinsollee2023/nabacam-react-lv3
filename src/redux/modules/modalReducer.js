@@ -17,7 +17,7 @@ export const openModal2 = (payload) => {
 
 const initialState = { modal1: false, modal2: false };
 
-const modal1Reducer = (state = initialState, action) => {
+const modalReducer = (state = initialState, action) => {
   switch (action.type) {
     case OPEN_MODAL1:
       return { ...state, modal1: action.payload };
@@ -28,4 +28,4 @@ const modal1Reducer = (state = initialState, action) => {
   }
 };
 
-export default modal1Reducer;
+export default modalReducer;

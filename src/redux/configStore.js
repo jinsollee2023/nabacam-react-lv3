@@ -1,8 +1,14 @@
 import { createStore } from "redux";
 import { combineReducers } from "redux";
-import modal1Reducer from "./modal1Reducer";
+import modalReducer from "./modules/modalReducer";
+import inputReducer from "./modules/inputReducer";
+import selectReducer from "./modules/selectReducer";
 
-const rootReducer = combineReducers({ modal1Reducer });
+const rootReducer = combineReducers({
+  modalReducer,
+  inputReducer,
+  selectReducer,
+});
 const store = createStore(rootReducer);
 
 export default store;
